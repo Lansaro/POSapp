@@ -5,22 +5,16 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.all
   end
 
-  def new
-    @wallet = get_wallet
-    @card = get_card
-    @transaction = Transaction.new
-  end
-
-  #capturing wallet, card, transaction details
+  #capturing wallet, transaction details
   #create a transaction instance (create)
-  #then to to block_chain
+  #then to to back_end
 
   def create
-    @transaction = Transaction.new(transaction_params)
-    @transaction.card = get_card
+    @wallet = Wallet.find(params[:wallet_id])
+    @transaction = @wallet.transaction.create(transaction_params)
     if @transaction.save
-      @transaction.send_transaction_to_block_chain
-      redirect_to wallet_path(@transaction.card.wallet)
+      # @transaction.send_transaction_to_back_end
+      redirect_to wallet_path(@wallet)
     else
       render "new"
     end
@@ -36,11 +30,7 @@ class TransactionsController < ApplicationController
     Wallet.find(params[:wallet_id])
   end
 
-  def get_card
-    Card.find(params[:card_id])
-  end
-
   def transaction_params
-    params.require(:transaction).permit(:amount, :status, :description, :foreign_wallet, :wallet, :private_key, :password)
+    params.require(:transaction).permit(:amount, :status, :description, :sender_wallet, :wallet, :sender_private_key, :sender_pin)
   end
 end

@@ -29,7 +29,7 @@ class WalletsController < ApplicationController
   end
 
   def wallet_params
-    params.require(:wallet).permit(:account, :private_key, :public_key, :active)
+    params.require(:wallet).permit(:account, :private_key, :active, :password)
   end
 
 end

@@ -5,14 +5,11 @@ Rails.application.routes.draw do
   get 'test', to: 'static_pages#test', as: 'test'
   root 'static_pages#test'
 
-  resources :poss
   resources :users
   resources :transactions
 
   resources :wallets, except: [:index] do
-    resources :cards, except: [:show] do
-      resources :transactions, except: [:show]
-    end
+    resources :transactions, except: [:show]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,11 +1,12 @@
 <div class="panel-body">
-  <%= simple_form_for [@wallet, @card, @transaction] do |f| %>
-    <%= f.hidden_field :wallet, value: @card.try(:wallet) %>
-    <%= f.hidden_field :private_key, value: @card.wallet.try(:private_key) %>
+  <%= simple_form_for [@wallet, @transaction] do |f| %>
+    <%= f.hidden_field :wallet, value: @wallet.try(:wallet) %>
+    <%= f.input :sender_wallet, label: false, input_html: {placeholder: "Sender's Wallet"}%>
+    <%= f.input :sender_private_key, label: false, input_html: {placeholder: "Sender's Key"}%>
+    <%= f.input :sender_card, label: false, input_html: {placeholder: "Sender's Card"}%>
     <%= f.input :description, label: false, input_html: {placeholder: "Description"} %>
     <%= f.input :amount, label: false, input_html: {placeholder: "Amount"}%>
-    <%= f.input :foreign_wallet, label: false, input_html: {placeholder: "Receiver - Wallet"}%>
-    <%= f.input :password, label: false, input_html: {placeholder: "My password"}%>
+    <%= f.input :sender_pin, label: false, input_html: {placeholder: "PIN Code"}%>
     <%= f.submit "Submit".html_safe, class: "btn btn-lg btn-success"%>
   <% end %>
 </div>
