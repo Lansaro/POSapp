@@ -6,10 +6,9 @@ Rails.application.routes.draw do
   root 'static_pages#test'
 
   resources :users
-  resources :transactions
 
   resources :wallets, except: [:index] do
-    resources :transactions, except: [:show]
+    resources :transactions
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

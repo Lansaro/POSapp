@@ -9,12 +9,17 @@ class TransactionsController < ApplicationController
   #create a transaction instance (create)
   #then to to back_end
 
+  def new
+    @wallet = get_wallet
+    @transaction = Transaction.new
+  end
+
   def create
-    @wallet = Wallet.find(params[:wallet_id])
-    @transaction = @wallet.transaction.create(transaction_params)
+    @transaction = Transaction.new(transaction_params)
+    @transaction.wallet = get_wallet
     if @transaction.save
       # @transaction.send_transaction_to_back_end
-      redirect_to wallet_path(@wallet)
+      redirect_to wallet_path(get_wallet)
     else
       render "new"
     end
@@ -31,6 +36,6 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:amount, :status, :description, :sender_wallet, :wallet, :sender_private_key, :sender_pin)
+    params.require(:transaction).permit(:amount, :status, :description, :sender_wallet, :sender_private_key, :sender_pin)
   end
 end

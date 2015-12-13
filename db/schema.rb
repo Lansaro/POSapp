@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207055801) do
+ActiveRecord::Schema.define(version: 20151209035906) do
 
   create_table "cards", force: :cascade do |t|
     t.string   "number"
@@ -64,12 +64,14 @@ ActiveRecord::Schema.define(version: 20151207055801) do
     t.datetime "updated_at",         null: false
     t.string   "status"
     t.string   "description"
-    t.string   "wallet"
     t.string   "sender_wallet"
     t.string   "sender_private_key"
     t.string   "sender_card"
     t.string   "sender_pin"
+    t.integer  "wallet_id"
   end
+
+  add_index "transactions", ["wallet_id"], name: "index_transactions_on_wallet_id"
 
   create_table "types", force: :cascade do |t|
     t.string   "type"

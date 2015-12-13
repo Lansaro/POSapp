@@ -8,16 +8,15 @@
 #  updated_at         :datetime         not null
 #  status             :string
 #  description        :string
-#  wallet             :string
 #  sender_wallet      :string
 #  sender_private_key :string
 #  sender_card        :string
 #  sender_pin         :string
+#  wallet_id          :integer
 #
 
 require 'rubygems' if RUBY_VERSION < '1.9'
 require 'rest_client'
-require 'blockchain'
 require 'json'
 require 'uri'
 
@@ -25,7 +24,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :wallet
   belongs_to :user
 
-  after_create :send_transaction_to_back_end
+  # after_create :send_transaction_to_back_end
 
   # def send_transaction_to_block_chain
   #   address=self.foreign_wallet
