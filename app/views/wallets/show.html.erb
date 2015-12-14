@@ -11,7 +11,7 @@
           <p> <%= @wallet.active %> </p>
         </div>
         <div class="panel-body">
-          <%= link_to "New Transaction", new_wallet_transaction_path(:wallet), class: 'btn btn-default btn-lg' %>
+          <%= link_to "New Transaction", new_wallet_transaction_path(@wallet.id), class: 'btn btn-default btn-lg' %>
           <%= link_to "Home", test_path, class: 'btn btn-default btn-lg' %>
           <%= link_to "Sign out", destroy_user_session_path, class: 'btn btn-default btn-lg', :method => :delete %>
         </div>
